@@ -6,16 +6,24 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 
-const API_KEY = process.env.SCRIBECAT_API_KEY;
-const API_URL = process.env.SCRIBECAT_API_URL;
+const SCRIBECAT_URL = process.env.SCRIBECAT_URL;
 
-if (!API_KEY || !API_URL) {
+if (!SCRIBECAT_URL) {
   console.error(
-    'Missing required env vars: SCRIBECAT_API_KEY and SCRIBECAT_API_URL\n' +
-      'Example: SCRIBECAT_API_URL=https://<your-deployment>.convex.site',
+    'Missing required env var: SCRIBECAT_URL\n' +
+      'Format: https://<deployment>.convex.site?key=sc_...',
   );
   process.exit(1);
 }
+
+const _parsed = new URL(SCRIBECAT_URL);
+const API_KEY = _parsed.searchParams.get('key');
+if (!API_KEY) {
+  console.error('SCRIBECAT_URL must include ?key=<api-key>\nExample: https://spotted-vulture-584.convex.site?key=sc_...');
+  process.exit(1);
+}
+_parsed.searchParams.delete('key');
+const API_URL = _parsed.toString().replace(/\/$/, '');
 
 async function callApi(path: string, params?: Record<string, string>): Promise<unknown> {
   const url = new URL(`${API_URL}${path}`);
