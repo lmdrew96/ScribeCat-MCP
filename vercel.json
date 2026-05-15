@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/mcp.ts": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "CONVEX_SITE_URL": "https://spotted-vulture-584.convex.site"
+  }
+}
