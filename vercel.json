@@ -1,6 +1,12 @@
 {
   "outputDirectory": ".",
   "buildCommand": "npm run build",
+  "rewrites": [
+    {
+      "source": "/.well-known/oauth-authorization-server",
+      "destination": "/api/oauth-metadata"
+    }
+  ],
   "functions": {
     "api/mcp.ts": {
       "maxDuration": 30

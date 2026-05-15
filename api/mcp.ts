@@ -41,9 +41,12 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     return;
   }
 
-  // Extract API key from ?key= query param in the URL
+  // Accept API key via Bearer token (OAuth flow) or ?key= query param (direct URL)
+  const authHeader = req.headers.authorization;
   const url = new URL(req.url ?? '/', `https://${req.headers.host ?? 'localhost'}`);
-  const apiKey = url.searchParams.get('key');
+  const apiKey = authHeader?.startsWith('Bearer ')
+    ? authHeader.slice(7).trim()
+    : url.searchParams.get('key');
 
   if (!apiKey?.startsWith('sc_')) {
     res.writeHead(401, { 'Content-Type': 'application/json' });
