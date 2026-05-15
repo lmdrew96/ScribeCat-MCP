@@ -10,7 +10,9 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/src/http.js",
-    "start:stdio": "node dist/src/index.js"
+    "start:stdio": "node dist/src/index.js",
+    "deploy": "wrangler deploy",
+    "dev:worker": "wrangler dev"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^22.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "wrangler": "^4.92.0"
   }
 }

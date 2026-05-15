@@ -1,0 +1,7 @@
+name = "scribecat-mcp"
+main = "src/worker.ts"
+compatibility_date = "2024-11-04"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+CONVEX_SITE_URL = "https://spotted-vulture-584.convex.site"
